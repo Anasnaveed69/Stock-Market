@@ -1,24 +1,30 @@
-const express = require("express")
-const stockController = require("../controllers/stockController")
+const express = require("express");
+const StockController = require("../controllers/stockController");
 
-const router = express.Router()
+const router = express.Router();
 
 // GET all stocks
-router.get("/", stockController.getAllStocks)
+router.get("/", StockController.getAllStocks);
 
 // GET stock by ID
-router.get("/id/:id", stockController.getStockById)
+router.get("/id/:id", StockController.getStockById);
 
 // GET stock by symbol
-router.get("/symbol/:symbol", stockController.getStockBySymbol)
+router.get("/symbol/:symbol", StockController.getStockBySymbol);
 
 // GET stocks by sector
-router.get("/sector/:sector", stockController.getStocksBySector)
+router.get("/sector/:sector", StockController.getStocksBySector);
 
 // GET search stocks
-router.get("/search", stockController.searchStocks)
+router.get("/search", StockController.searchStocks);
 
 // GET stock with market trend data
-router.get("/trend/:id", stockController.getStockWithTrend)
+router.get("/trend/:id", StockController.getStockWithTrend);
 
-module.exports = router
+// API data fetching routes
+router.get("/fetch-stock", StockController.fetchAndStoreStockData);
+router.get("/fetch-news", StockController.fetchAndStoreMarketNews);
+router.get("/fetch-trend", StockController.fetchAndStoreMarketTrend);
+router.get("/fetch-session", StockController.fetchAndStoreTradingSession);
+
+module.exports = router;

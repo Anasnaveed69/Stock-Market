@@ -1,45 +1,35 @@
-const { Sequelize } = require("sequelize");
-require("dotenv").config();
-
-// Extract instance name from DB_SERVER (e.g., "localhost\\SQLEXPRESS")
-const [host, instanceName] = process.env.DB_SERVER.split("\\");
-
-// Create Sequelize instance
+const { Sequelize } = require('sequelize');
+require('dotenv').config();
 const sequelize = new Sequelize(
-  process.env.DB_NAME || "RSMA",
-  process.env.DB_USER || "sa",
-  process.env.DB_PASSWORD || "116142",
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: host || "localhost",
-    dialect: "mssql",
-    port: process.env.DB_PORT || 1433,
+    host: process.env.DB_SERVER,
+    port: process.env.DB_PORT,
+    dialect: 'mssql',
     dialectOptions: {
       options: {
-        instanceName: instanceName || "SQLEXPRESS",
-        encrypt: false, // or true if required
-        trustServerCertificate: true,
-      },
+        encrypt: false, // Temporarily disable encryption to bypass TLS issue
+        trustServerCertificate: true
+      }
     },
+    logging: (msg) => console.log(`Sequelize: ${msg}`), // Enhanced logging
     pool: {
       max: 5,
       min: 0,
       acquire: 30000,
-      idle: 10000,
-    },
-    logging: false,
+      idle: 10000
+    }
   }
 );
 
 // Test the connection
-async function testConnection() {
+(async () => {
   try {
     await sequelize.authenticate();
-    console.log("✅ Connection to the database has been established successfully.");
+    console.log('Connection has been established successfully.');
   } catch (error) {
-    console.error("❌ Unable to connect to the database:", error);
+    console.error('Unable to connect to the database:', error);
   }
-}
-
-testConnection();
-
-module.exports = sequelize;
+})();module.exports = sequelize;

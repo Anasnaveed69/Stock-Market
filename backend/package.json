@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "NODE_TLS_MIN_V2_PROTOCOL=TLSv1.2 node server.js",
+    "dev": "NODE_TLS_MIN_V2_PROTOCOL=TLSv1.2 nodemon server.js"
   },
   "keywords": [],
   "author": "",

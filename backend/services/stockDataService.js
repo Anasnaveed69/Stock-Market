@@ -162,7 +162,7 @@ async function updateMarketTrend(stockId, stockData) {
 async function fetchAndSaveStockData() {
   try {
     // List of stock symbols to fetch
-    const symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
+    const symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA","BTC" ,"ETH"]
 
     for (const symbol of symbols) {
       try {
